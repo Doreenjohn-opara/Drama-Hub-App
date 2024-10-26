@@ -5,6 +5,7 @@ import MovieCarousel from './MovieCarousel';
 import PopularMovies from './PopularMovies';
 import MovieCard from './MovieCard';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -114,7 +115,9 @@ const MovieList:FC<MovieListProps> = ({ movies }) => {
               {getMoviesList.length > 0 ? (
               <div className="search-results">
                 {getMoviesList.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} />
+                  <Link to={`/movie/${movie.id}`} key={movie.id}>   {/* Link to Movie Details */}
+                    <MovieCard movie={movie} />
+                  </Link>
                 ))}
               </div>
             ) : (
