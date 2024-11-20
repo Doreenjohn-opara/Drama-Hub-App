@@ -5,6 +5,7 @@ import MovieCarousel from './MovieCarousel';
 import PopularMovies from './PopularMovies';
 import MovieCard from './MovieCard';
 import axios from 'axios';
+import Spinner from './Spinner';
 import { Link } from 'react-router-dom';
 
 
@@ -97,7 +98,8 @@ const MovieList:FC<MovieListProps> = ({ movies }) => {
       } else {
         fetchPopularMovies(newPage);
       }
-      setCurrentPage(newPage)
+    setCurrentPage(newPage)
+    scrollToMovies() // Scroll to top
     } else {
       console.log('Invalid Page Number')
     }
@@ -109,7 +111,7 @@ const MovieList:FC<MovieListProps> = ({ movies }) => {
           <Navbar query={searchQuery} getMovies={handleSearchSubmit} handleQueryInput={handleQueryInput}/>
           <MovieCarousel />
           <section className="movies-section" id="movie-container">
-            <div className={`movies-container ${isLoading ? 'loading' : 'loaded'}`}>
+            <div className={`movies-container ${isLoading ? <Spinner /> : 'loaded'}`}>
               <h2 className='movies-header'>{getMoviesList.length > 0 ? (isSearching ? 'Search Results': 'Popular Movies'): ''}</h2>
               <div className='search-results-container'>
               {getMoviesList.length > 0 ? (
