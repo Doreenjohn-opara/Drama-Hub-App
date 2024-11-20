@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Movie, Genre } from "../utils/index";
-import { Link } from "react-router-dom";
 import { MovieCardProps } from "../utils/index";
+import placeholderImage from "../assets/images/placeholderimg.png";
 
 
 const MovieCard: React.FC<MovieCardProps>= ({ movie }) => {
@@ -34,30 +34,17 @@ const MovieCard: React.FC<MovieCardProps>= ({ movie }) => {
 
  return (
     <>
-        {/* <div className="movie-card"> 
-        <Link to={`/movie/${movie.id}`}>
-           <img
-           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-           alt={movie.title}
-           className="movie-poster"
-           />
-           <div className="movie-info">
-            <div className="outer-info">
-                <h3>{movie.title}</h3>
-                <p>{new Date(movie.release_date).getFullYear()}</p>
-            </div>
-            <div className="inner-info">
-                <p>{movie.rating}</p>
-                {/* <p>{movie.genres.map((genre: any) => genre.name).join(", ")}</p> */}
-            {/* </div>
-           </div>
-        </Link>
-    </div> */}
-
-
     <div className="movie-card">
       <div className="poster-container">
-        <img src={`${process.env.REACT_APP_IMAGE_BASE_URL}${poster_path}`} alt={title} className="movie-poster" />
+        <img 
+        src={movie.poster_path ? `${process.env.REACT_APP_IMAGE_BASE_URL}${poster_path}` : placeholderImage} 
+        alt={title} 
+        onError={(e) => {
+          const target = e.target as HTMLImageElement; // Cast to HTMLImageElement
+          target.src = placeholderImage;    // Set the placeholder image on error}}
+         }}
+        className="movie-poster" 
+        />
         <div className="genre">
         {genres.length > 0 && (
           <div className="genres-container">
